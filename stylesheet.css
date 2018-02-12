@@ -1,0 +1,16 @@
+#map {
+ height: 400px;
+ width: 100%;
+}
+
+#error {
+  visibility:hidden;
+}
+
+form input {
+  margin: 5px;
+}
+
+#addressnotfound {
+  visibility:hidden;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="stylesheet.css" />
+  </head>
+  <body>
+    <h3>Google Maps for dummies</h3>
+    <div id="panel"></div>
+      <div id="map"></div>
+    <form>
+      <label for="address">Address</label>
+      <input type="text" id="address">
+      <label for="city">City</label>
+      <input type="text" id="city">
+      <input type="button" id="submitButton" value="Search" onclick="handleButton(false)">
+      <input type="button" id="submitButton" value="Add marker" onclick="handleButton(true)">
+    </form>
+    <div id="error">
+      <h1>Please enter valid address!</h1>
+    </div>
+    <div id="addressnotfound">
+    <h1>Address not found!</h1>
+    
+      </p>
+    </div>
+
+
+    <script src="google.js"></script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_Yt0izIctnEEiG8VOoiQ_hj79kkOzrcI&callback=initMap" async defer>
+
+    </script>
+  </body>
+</html>
