@@ -10,25 +10,28 @@ function handleButton(addMarker) {
     document.getElementById('error').style.visibility = "visible";
     return;
   }
-  var test = getCoordinates(address, city);
-  setTimeout(initMap, 500, test, addMarker);
+  getCoordinates(address, city, addMarker);
   document.getElementById('error').style.visibility = "hidden;";
 }
 
-function getCoordinates(address, city) {
+function getCoordinates(address, city, addMarker) {
   var test = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + " " + city + "A&key=AIzaSyD_Yt0izIctnEEiG8VOoiQ_hj79kkOzrcI";
   returnable = [];
   $.getJSON(test, function(data) {
   returnable[0] = data["results"][0]["geometry"]["location"]["lat"];
   returnable[1] = data["results"][0]["geometry"]["location"]["lng"];
+  initMap(returnable, addMarker);
    });
-     return returnable;
+
 }
 
 
 function initMap(coords, addMarker) {
 
   if(coords==null) return;
+
+  //console.log(coords[]);
+  console.log(coords);
   if(coords.length == 0) {
   document.getElementById('addressnotfound').style.visibility = "visible";
   }
