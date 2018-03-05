@@ -8,10 +8,11 @@ function handleButton(addMarker) {
 
   if(city.trim().length==0 && address.trim().length==0) {
     document.getElementById('error').style.visibility = "visible";
+    document.getElementById('error').innerHTML = "<h1>Please enter a valid address!</h1>"
     return;
   }
   getCoordinates(address, city, addMarker);
-  document.getElementById('error').style.visibility = "hidden;";
+  document.getElementById('error').style.visibility = "hidden";
 }
 
 function getCoordinates(address, city, addMarker) {
@@ -23,6 +24,30 @@ function getCoordinates(address, city, addMarker) {
   initMap(returnable, addMarker);
    });
 
+}
+
+var rad = function(x) {
+  return x * Math.PI / 180;
+};
+
+var getDistance = function(p1, p2) {
+  var R = 6378137; // Earth’s mean radius in meter
+  var dLat = rad(p2.lat - p1.lat);
+  var dLong = rad(p2.lng - p1.lng);
+  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(rad(p1.lat)) * Math.cos(rad(p2.lat)) *
+    Math.sin(dLong / 2) * Math.sin(dLong / 2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  var d = R * c;
+  return d; // returns the distance in meter
+};
+
+function calculateDistance() {
+document.getElementById('error').innerHTML = "<h1>Straight line distance between two markers is approx. " + (getDistance(locations[0], locations[1])/1000).toFixed(2) + " kilometers </h1>";
+document.getElementById('error').style.visibility = "visible";
+locations = [];
+document.getElementById('calculateDistance').style.visibility = "hidden";
+index = 0;
 }
 
 
@@ -40,6 +65,12 @@ function initMap(coords, addMarker) {
   if(addMarker) {
   locations[index] =  uluru;
   index++;
+}
+
+if(locations.length == 2) {
+    document.getElementById('calculateDistance').style.visibility = "visible";
+} else {
+    document.getElementById('calculateDistance').style.visibility = "hidden";
 }
 
   var map = new google.maps.Map(document.getElementById('map'), {
