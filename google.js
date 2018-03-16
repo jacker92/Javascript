@@ -8,18 +8,26 @@ function handleButton(addMarker) {
   var city = document.getElementById('city').value;
 
   if (city.trim().length == 0 && address.trim().length == 0) {
-    document.getElementById('error').style.visibility = "visible";
-    document.getElementById('error').innerHTML = "<h1>Please enter a valid address!</h1>"
+    handleError();
     return;
   }
   getCoordinates(address, city, addMarker);
   document.getElementById('error').innerHTML = "";
 }
 
+function handleError() {
+  document.getElementById('error').style.visibility = "visible";
+  document.getElementById('error').innerHTML = "<h1>Please enter a valid address!</h1>"
+}
+
 function getCoordinates(address, city, addMarker) {
   var test = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + " " + city + "A&key=AIzaSyD_Yt0izIctnEEiG8VOoiQ_hj79kkOzrcI";
   returnable = [];
   $.getJSON(test, function(data) {
+    if (data["status"] == "ZERO_RESULTS") {
+      handleError();
+      return;
+    }
     returnable[0] = data["results"][0]["geometry"]["location"]["lat"];
     returnable[1] = data["results"][0]["geometry"]["location"]["lng"];
     initMap(returnable, addMarker);
@@ -44,7 +52,9 @@ var getDistance = function(p1, p2) {
 };
 
 function calculateDistance() {
-  document.getElementById('error').innerHTML = "<h1>Straight line distance between two markers is approx. " + (getDistance(locations[0], locations[1]) / 1000).toFixed(2) + " kilometers </h1>";
+  document.getElementById('error').innerHTML = "<h1>Straight line distance between two markers is approx. " + (getDistance(locations[0], locations[1]) / 1000).toFixed(2) + " kilometers. </h1>";
+  document.getElementById('address').value = "";
+  document.getElementByID('city').value = "";
   document.getElementById('error').style.visibility = "visible";
   locations = [];
   document.getElementById('calculateDistance').style.visibility = "hidden";
