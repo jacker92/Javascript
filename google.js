@@ -54,7 +54,7 @@ var getDistance = function(p1, p2) {
 function calculateDistance() {
   document.getElementById('error').innerHTML = "<h1>Straight line distance between two markers is approx. " + (getDistance(locations[0], locations[1]) / 1000).toFixed(2) + " kilometers. </h1>";
   document.getElementById('address').value = "";
-  document.getElementByID('city').value = "";
+  document.getElementById('city').value = "";
   document.getElementById('error').style.visibility = "visible";
   locations = [];
   document.getElementById('calculateDistance').style.visibility = "hidden";
