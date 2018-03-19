@@ -68,9 +68,16 @@ function initMap(coords, addMarker) {
   if (coords == null) return;
 
   console.log(coords);
+
+// This may be unnecessary, just to prevent errors
   if (coords.length == 0) {
-    document.getElementById('addressnotfound').style.visibility = "visible";
+    document.getElementById('fatalerror').innerHTML = "Error with the server!";
+    return;
+  } else {
+    document.getElementById('fatalerror').innerHTML = "";
   }
+
+
   var uluru = {
     lat: coords[0],
     lng: coords[1]
